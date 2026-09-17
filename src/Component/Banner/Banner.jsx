@@ -1,7 +1,7 @@
-import React from "react";
 import banner1 from "../../assets/banner-1.jpg";
 import banner2 from "../../assets/banner-2.jpg";
 import banner3 from "../../assets/banner-3.jpg";
+import banner4 from "../../assets/banner-4.jpg";
 import { Link } from "react-router";
 
 const slides = [
@@ -28,8 +28,7 @@ const slides = [
   },
   {
     id: "slide4",
-    image:
-      "https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp",
+    image: banner4,
     title: "Find Movies You'll Love",
     description:
       "Search your favorite titles and explore everything you need to know about each movie.",
@@ -38,7 +37,7 @@ const slides = [
 
 const Banner = () => {
   return (
-    <div className="carousel w-full rounded-2xl">
+    <div className="carousel w-full overflow-hidden rounded-xl sm:rounded-2xl">
       {slides.map((slide, index) => {
         const previousSlide = index === 0 ? slides.length - 1 : index - 1;
 
@@ -50,48 +49,49 @@ const Banner = () => {
             id={slide.id}
             className="carousel-item relative w-full"
           >
-            {/* Image */}
+            {/* Background Image */}
             <img
               src={slide.image}
               alt={slide.title}
-              className="h-[450px] w-full object-cover sm:h-[500px] md:h-[600px]"
+              className="h-[400px] w-full object-cover object-center sm:h-[500px] md:h-[550px] lg:h-[600px]"
             />
 
-            <div className="absolute inset-0 bg-black/60"></div>
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/60" />
 
-            {/* Content */}
+            {/* Hero Content */}
             <div className="absolute inset-0 flex items-center">
-              <div className="mx-auto w-full max-w-7xl px-6 text-white sm:px-12 lg:px-16">
-                <div className="max-w-2xl space-y-5">
-                  <p className="font-semibold uppercase tracking-[0.3em] text-secondary">
+              <div className="mx-auto w-full max-w-7xl px-10 sm:px-14 md:px-16 lg:px-20">
+                <div className="max-w-2xl space-y-3 sm:space-y-5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-secondary sm:text-sm sm:tracking-[0.3em]">
                     Welcome to Movie Explorer
                   </p>
 
-                  <h1 className="text-3xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+                  <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
                     {slide.title}
                   </h1>
 
-                  <p className="max-w-xl text-sm leading-7 text-gray-200 sm:text-lg">
+                  <p className="max-w-xl text-sm leading-6 text-gray-200 sm:text-base sm:leading-7 lg:text-lg">
                     {slide.description}
                   </p>
 
-                  {/*  Button */}
+                  {/* CTA Button */}
                   <Link
                     to="/movies"
-                    className="btn btn-secondary mt-3 rounded-full px-8 text-base font-bold"
+                    className="btn btn-secondary btn-sm mt-2 rounded-full px-5 text-sm font-bold sm:btn-md sm:mt-3 sm:px-8 sm:text-base"
                   >
                     Explore Movies
-                    <span>→</span>
+                    <span aria-hidden="true">→</span>
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="absolute left-3 right-3 top-1/2 flex -translate-y-1/2 justify-between sm:left-6 sm:right-6">
+            <div className="absolute left-2 right-2 top-1/2 flex -translate-y-1/2 justify-between sm:left-4 sm:right-4 md:left-6 md:right-6">
               <a
                 href={`#${slides[previousSlide].id}`}
                 aria-label="Previous slide"
-                className="btn btn-circle btn-sm border-white/30 bg-black/40 text-white hover:bg-black/70 sm:btn-md"
+                className="btn btn-circle btn-xs border-white/30 bg-black/40 text-white hover:bg-black/70 sm:btn-sm md:btn-md"
               >
                 ❮
               </a>
@@ -99,7 +99,7 @@ const Banner = () => {
               <a
                 href={`#${slides[nextSlide].id}`}
                 aria-label="Next slide"
-                className="btn btn-circle btn-sm border-white/30 bg-black/40 text-white hover:bg-black/70 sm:btn-md"
+                className="btn btn-circle btn-xs border-white/30 bg-black/40 text-white hover:bg-black/70 sm:btn-sm md:btn-md"
               >
                 ❯
               </a>

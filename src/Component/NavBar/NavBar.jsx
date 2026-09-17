@@ -1,16 +1,19 @@
-import React from "react";
 import Logo from "../Logo/Logo";
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
 
 const NavBar = () => {
   const links = (
     <>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? "bg-primary border px-2 py-1 rounded" : "text-black"
-          }
           to="/"
+          className={({ isActive }) =>
+            `rounded-lg px-3 py-2 transition-colors ${
+              isActive
+                ? "bg-primary text-primary-content"
+                : "text-base-content hover:bg-base-200"
+            }`
+          }
         >
           Home
         </NavLink>
@@ -18,10 +21,14 @@ const NavBar = () => {
 
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? "bg-primary border px-2 py-1 rounded" : "text-black"
-          }
           to="/about"
+          className={({ isActive }) =>
+            `rounded-lg px-3 py-2 transition-colors ${
+              isActive
+                ? "bg-primary text-primary-content"
+                : "text-base-content hover:bg-base-200"
+            }`
+          }
         >
           About
         </NavLink>
@@ -30,45 +37,60 @@ const NavBar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm  rounded-b-xl">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                aria-label="Menu"
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            <ul
-              tabIndex={-1}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+    <div className="navbar relative z-50 mx-auto w-full rounded-b-xl bg-base-100 px-3 shadow-sm sm:px-6 lg:px-8">
+      {/* Navbar Start */}
+      <div className="navbar-start min-w-0 flex-1">
+        {/* Mobile Dropdown */}
+        <div className="dropdown lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            aria-label="Open navigation menu"
+            className="btn btn-ghost btn-square"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              {links}
-            </ul>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
           </div>
 
-          <Logo></Logo>
+          <ul
+            tabIndex={0}
+            className="menu dropdown-content menu-sm z-50 mt-3 w-52 rounded-box bg-base-100 p-2 shadow-lg"
+          >
+            {links}
+          </ul>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+
+        {/* Logo */}
+        <div className="ml-1 min-w-0">
+          <Logo />
         </div>
-        <div className="navbar-end">
-          <a className="btn btn-secondary text-secondary-content">
-            Explore Movies
-          </a>
-        </div>
+      </div>
+
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal items-center gap-2 px-1">
+          {links}
+        </ul>
+      </div>
+
+      <div className="navbar-end flex-1">
+        <Link
+          to="/movies"
+          className="btn btn-secondary btn-sm whitespace-nowrap sm:btn-md"
+        >
+          Explore Movies
+        </Link>
       </div>
     </div>
   );
