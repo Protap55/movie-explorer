@@ -1,10 +1,12 @@
 import useMoviesData from "../../hooks/useMoviesData";
 import MovieCard from "../../Component/MovieCard/MovieCard";
 import Loader from "../../Component/Loader/Loader";
+import Modal from "../../Component/Modal/Modal";
 import { useState } from "react";
 
 const Movies = () => {
   const [search, setSearch] = useState("");
+  const [modalData, setModalData] = useState(null);
   const { moviesData, isLoading } = useMoviesData();
 
   const handleSearch = (e) => {
@@ -14,7 +16,6 @@ const Movies = () => {
   const searchItem = moviesData.filter((movie) =>
     movie.name.toLowerCase().includes(search.toLowerCase()),
   );
-  console.log(searchItem);
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -36,8 +37,12 @@ const Movies = () => {
         <Loader />
       ) : searchItem.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 py-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {searchItem.map((movieData, index) => (
-            <MovieCard key={index} movieData={movieData} />
+          {searchItem.map((movieData) => (
+            <MovieCard
+              key={movieData.id}
+              movieData={movieData}
+              setModalData={setModalData}
+            />
           ))}
         </div>
       ) : (
@@ -51,6 +56,8 @@ const Movies = () => {
           </p>
         </div>
       )}
+
+      {modalData && <Modal modalData={modalData} setModalData={setModalData} />}
     </section>
   );
 };

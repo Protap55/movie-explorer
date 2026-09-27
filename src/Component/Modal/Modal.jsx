@@ -1,27 +1,28 @@
-const Modal = ({ show, dialogRef }) => {
+const Modal = ({ modalData, setModalData }) => {
   return (
-    <dialog ref={dialogRef} className="modal">
-      <div className="modal-box relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-5 sm:p-8">
+    <dialog open className="modal">
+      <div className="modal-box">
         <form method="dialog">
           <button
-            type="submit"
-            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
-            aria-label="Close modal"
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={() => setModalData(null)}
           >
             ✕
           </button>
         </form>
 
-        {show && (
+        {modalData && (
           <>
-            <h2 className="pr-8 text-xl font-bold sm:text-2xl">{show.name}</h2>
+            <h2 className="pr-8 text-xl font-bold sm:text-2xl">
+              {modalData.name}
+            </h2>
 
             <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-[180px_1fr]">
               <div className="flex justify-center sm:block">
-                {show.image?.medium ? (
+                {modalData.image?.medium ? (
                   <img
-                    src={show.image.medium}
-                    alt={`${show.name} poster`}
+                    src={modalData.image.medium}
+                    alt={`${modalData.name} poster`}
                     className="max-h-72 w-auto rounded-lg object-cover sm:w-full"
                   />
                 ) : (
@@ -33,29 +34,31 @@ const Modal = ({ show, dialogRef }) => {
 
               <div className="space-y-3 text-sm sm:text-base">
                 <p>
-                  <strong>Rating:</strong> {show.rating?.average ?? "N/A"}
+                  <strong>Rating:</strong> {modalData.rating?.average ?? "N/A"}
                 </p>
 
                 <p>
-                  <strong>Premiered:</strong> {show.premiered || "N/A"}
+                  <strong>Premiered:</strong> {modalData.premiered || "N/A"}
                 </p>
 
                 <p>
-                  <strong>Language:</strong> {show.language || "N/A"}
+                  <strong>Language:</strong> {modalData.language || "N/A"}
                 </p>
 
                 <p>
                   <strong>Genres:</strong>{" "}
-                  {show.genres?.length ? show.genres.join(", ") : "N/A"}
+                  {modalData.genres?.length
+                    ? modalData.genres.join(", ")
+                    : "N/A"}
                 </p>
 
                 <p>
-                  <strong>Status:</strong> {show.status || "N/A"}
+                  <strong>Status:</strong> {modalData.status || "N/A"}
                 </p>
 
-                {show.url && (
+                {modalData.url && (
                   <a
-                    href={show.url}
+                    href={modalData.url}
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-primary mt-2 w-full sm:w-auto"
@@ -68,12 +71,6 @@ const Modal = ({ show, dialogRef }) => {
           </>
         )}
       </div>
-
-      <form method="dialog" className="modal-backdrop">
-        <button type="submit" aria-label="Close modal">
-          Close
-        </button>
-      </form>
     </dialog>
   );
 };

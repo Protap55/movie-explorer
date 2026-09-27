@@ -1,4 +1,4 @@
-const MovieCard = ({ movieData }) => {
+const MovieCard = ({ movieData, setModalData }) => {
   return (
     <article className="card h-full bg-base-100 shadow-md transition hover:-translate-y-1 hover:shadow-xl">
       <figure className="h-64 bg-base-200 sm:h-72">
@@ -11,7 +11,7 @@ const MovieCard = ({ movieData }) => {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-base-content/60">
-            No poster available
+            No poster available....
           </div>
         )}
       </figure>
@@ -39,7 +39,7 @@ const MovieCard = ({ movieData }) => {
           <button
             type="button"
             className="btn btn-primary btn-block"
-            // onClick={() => onDetails(show)}
+            onClick={() => setModalData(movieData)}
           >
             See Details
           </button>
