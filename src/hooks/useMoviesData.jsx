@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 
 const useMoviesData = () => {
   const [moviesData, setMoviesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    fetch("https://api.tvmaze.com/search/shows?q=girls")
+    fetch("https://api.tvmaze.com/shows")
       .then((res) => res.json())
-      .then((data) => setMoviesData(data));
+      .then((data) => {
+        (setMoviesData(data), setIsLoading(false));
+      });
   }, []);
 
-  return moviesData;
+  return { moviesData, isLoading };
 };
 
 export default useMoviesData;

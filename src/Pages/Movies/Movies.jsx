@@ -1,27 +1,20 @@
-import { useRef, useState } from "react";
 import useMoviesData from "../../hooks/useMoviesData";
 import MovieCard from "../../Component/MovieCard/MovieCard";
-import Modal from "../../Component/Modal/Modal";
+import Loader from "../../Component/Loader/Loader";
+import { useState } from "react";
 
 const Movies = () => {
-  const moviesData = useMoviesData();
-  const [searchShow, setSearchShow] = useState("");
-  const [selectedShow, setSelectedShow] = useState(null);
-
-  const dialogRef = useRef(null);
+  const [search, setSearch] = useState("");
+  const { moviesData, isLoading } = useMoviesData();
 
   const handleSearch = (e) => {
-    setSearchShow(e.target.value);
+    setSearch(e.target.value);
   };
 
-  const handleDetails = (show) => {
-    setSelectedShow(show);
-    dialogRef.current?.showModal();
-  };
-
-  const filteredMovies = moviesData.filter((item) =>
-    item.show.name.toLowerCase().includes(searchShow.toLowerCase()),
+  const searchItem = moviesData.filter((movie) =>
+    movie.name.toLowerCase().includes(search.toLowerCase()),
   );
+  console.log(searchItem);
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -32,30 +25,32 @@ const Movies = () => {
       <label className="input mx-auto flex w-full max-w-md items-center">
         <input
           type="search"
-          value={searchShow}
+          value={search}
           onChange={handleSearch}
           placeholder="🔍 Search for a show..."
           aria-label="Search shows"
         />
       </label>
 
-      {filteredMovies.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : searchItem.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 py-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredMovies.map((item) => (
-            <MovieCard
-              key={item.show.id}
-              show={item.show}
-              onDetails={handleDetails}
-            />
+          {searchItem.map((movieData, index) => (
+            <MovieCard key={index} movieData={movieData} />
           ))}
         </div>
       ) : (
-        <p className="py-10 text-center text-base-content/70">
-          No shows found.
-        </p>
-      )}
+        <div className="flex min-h-60 flex-col items-center justify-center py-12 text-center">
+          <div className="mb-4 text-6xl">🎬</div>
 
-      <Modal show={selectedShow} dialogRef={dialogRef} />
+          <h2 className="text-2xl font-bold">No Movies Found</h2>
+
+          <p className="mt-2 max-w-md text-base-content/60">
+            We couldn't find any shows matching your search.
+          </p>
+        </div>
+      )}
     </section>
   );
 };
