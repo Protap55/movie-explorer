@@ -2,6 +2,7 @@ const Modal = ({ modalData, setModalData }) => {
   return (
     <dialog open className="modal">
       <div className="modal-box">
+        {/* Close Button */}
         <form method="dialog">
           <button
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -13,11 +14,14 @@ const Modal = ({ modalData, setModalData }) => {
 
         {modalData && (
           <>
+            {/* Title */}
             <h2 className="pr-8 text-xl font-bold sm:text-2xl">
               {modalData.name}
             </h2>
 
+            {/* Poster + Details */}
             <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-[180px_1fr]">
+              {/* Poster */}
               <div className="flex justify-center sm:block">
                 {modalData.image?.medium ? (
                   <img
@@ -32,6 +36,7 @@ const Modal = ({ modalData, setModalData }) => {
                 )}
               </div>
 
+              {/* Details */}
               <div className="space-y-3 text-sm sm:text-base">
                 <p>
                   <strong>Rating:</strong> {modalData.rating?.average ?? "N/A"}
@@ -55,19 +60,38 @@ const Modal = ({ modalData, setModalData }) => {
                 <p>
                   <strong>Status:</strong> {modalData.status || "N/A"}
                 </p>
-
-                {modalData.url && (
-                  <a
-                    href={modalData.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-primary mt-2 w-full sm:w-auto"
-                  >
-                    Visit TVMaze
-                  </a>
-                )}
               </div>
             </div>
+
+            {/* Overview */}
+            <div className="mt-6">
+              <h3 className="mb-2 text-lg font-bold">Overview</h3>
+
+              {modalData.summary ? (
+                <div
+                  className="text-sm leading-6 text-base-content/70"
+                  dangerouslySetInnerHTML={{
+                    __html: modalData.summary,
+                  }}
+                />
+              ) : (
+                <p className="text-sm text-base-content/60">
+                  No overview available.
+                </p>
+              )}
+            </div>
+
+            {/* TVMaze Link */}
+            {modalData.url && (
+              <a
+                href={modalData.url}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary mt-5 w-full sm:w-auto"
+              >
+                Visit TVMaze
+              </a>
+            )}
           </>
         )}
       </div>

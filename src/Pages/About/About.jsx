@@ -1,4 +1,3 @@
-import React from "react";
 const About = () => {
   return (
     <section className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6">
