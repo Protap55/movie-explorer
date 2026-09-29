@@ -55,5 +55,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-// https://github.com/Protap55?tab=repositories
