@@ -9,8 +9,8 @@ const MainLayout = () => {
         <NavBar></NavBar>
         <div className="py-3">
           <Outlet></Outlet>
-          <Footer></Footer>
         </div>
+        <Footer></Footer>
       </div>
     </div>
   );
